@@ -1,8 +1,13 @@
 import time
-import os
+import os, sys
 import torch
+from pathlib import Path
 from torchvision.models import resnet18, ResNet18_Weights
+ROOT_DIR=Path(__file__).resolve().parent.parent
+sys.path.append(str(ROOT_DIR))
 
+
+from config import ARTIFACT_PATH as PATH_DIR
 device=torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 print("Device: ", device)
@@ -14,12 +19,14 @@ model.to(device)
 x=torch.randn(
     1,3,224,224,device=device
 )
-torch.save(model.state_dict(),"resnet18.pth")
-print("Model artifact size:",os.path.getsize("resnet18.pth")/(1024**2),"MB")
+
+
+torch.save(model.state_dict(),PATH_DIR/"resnet18.pth")
+print("Model artifact size:",os.path.getsize(PATH_DIR/"resnet18.pth")/(1024**2),"MB")
 
 start=time.perf_counter()
 loaded_model=resnet18(weights=None)
-state_dict=torch.load("resnet18.pth",map_location=device)
+state_dict=torch.load(PATH_DIR/"resnet18.pth",map_location=device)
 
 loaded_model.load_state_dict(state_dict)
 

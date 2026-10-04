@@ -8,11 +8,13 @@ authors = [
 ]
 requires-python = ">=3.10"
 dependencies = [
+    "coremltools>=9.0",
     "onnx>=1.23.1",
     "onnxconverter-common>=1.16.0",
     "onnxruntime>=1.24.3",
     "onnxscript>=0.7.2",
     "psutil>=7.2.2",
+    "python-dotenv>=1.2.4",
     "tensorflow>=2.21.0",
     "torch>=2.14.1",
     "torchvision>=0.29.1",
