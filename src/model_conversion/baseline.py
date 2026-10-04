@@ -7,7 +7,7 @@ ROOT_DIR=Path(__file__).resolve().parent.parent
 sys.path.append(str(ROOT_DIR))
 
 
-from config import ARTIFACT_PATH as PATH_DIR
+from model_conversion.config.config import ARTIFACT_PATH as PATH_DIR
 device=torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 print("Device: ", device)

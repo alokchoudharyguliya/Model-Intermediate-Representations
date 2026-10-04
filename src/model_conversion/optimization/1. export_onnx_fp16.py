@@ -7,7 +7,7 @@ from pathlib import Path
 ROOT_DIR = Path(__file__).resolve().parent.parent.parent
 sys.path.append(str(ROOT_DIR))
 
-from config import ARTIFACT_PATH
+from model_conversion.config.config import ARTIFACT_PATH
 
 model=onnx.load(str(ARTIFACT_PATH/"resnet18.onnx"))
 
