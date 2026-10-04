@@ -1,6 +1,7 @@
 # Core ML program default to FP16 in Core ML Tools, so we delibrately request FP32 first to establish clean baseline
 import torch
 import coremltools as ct
+import numpy as np
 from torchvision.models import resnet18
 from pathlib import Path
 import sys
@@ -32,7 +33,8 @@ coreml_model=ct.convert(
         inputs=[
             ct.TensorType(
                 name="input",
-                shape=x.shape)
+                shape=x.shape,
+                dtype=np.float32)
             ],
         convert_to="mlprogram",
         compute_precision=ct.precision.FLOAT32

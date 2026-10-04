@@ -7,6 +7,15 @@ from onnxruntime.quantization import (
     QuantFormat
 )
 
+import sys
+from pathlib import Path
+
+# Option A: Add the project root to sys.path dynamically (quickest fix)
+ROOT_DIR = Path(__file__).resolve().parent.parent.parent
+sys.path.append(str(ROOT_DIR))
+
+from config import ARTIFACT_PATH
+
 # 1. Calibration Data
 
 class CalibrationReader(CalibrationDataReader):
@@ -41,11 +50,11 @@ class CalibrationReader(CalibrationDataReader):
 # FP32 ONNX -> INT8 ONNX
 
 reader=CalibrationReader(
-    "resnet18.onnx"
+    str(ARTIFACT_PATH/"resnet18.onnx")
 )
 quantize_static(
-    model_input="resnet18.onnx",
-    model_output="resnet18_int8.onnx",
+    model_input=str(ARTIFACT_PATH/"resnet18.onnx"),
+    model_output=str(ARTIFACT_PATH/"resnet18_int8.onnx"),
     calibration_data_reader=reader,
     quant_format=QuantFormat.QDQ,
     activation_type=QuantType.QInt8,
